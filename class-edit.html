@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="./css/font.css">
+    <link rel="stylesheet" href="./css/xadmin.css">
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./js/xadmin.js"></script>
+    <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+      <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+  <body>
+    <div class="x-body">
+      <form class="layui-form">
+        <!-- <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>邮箱
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="L_email" name="email" required="" lay-verify="email"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>将会成为您唯一的登入名
+              </div>
+          </div> -->
+        <div class="layui-form-item">
+          <label for="L_username" class="layui-form-label">
+            <span class="x-red">*</span>开班时间
+          </label>
+          <div class="layui-input-inline">
+            <input type="date" id="start_time" name="start_time" required="" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label for="L_username" class="layui-form-label">
+            <span class="x-red">*</span>毕业时间
+          </label>
+          <div class="layui-input-inline">
+            <input type="date" id="end_time" name="end_time" required="" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label for="L_username" class="layui-form-label">
+            <span class="x-red">*</span>班级名称
+          </label>
+          <div class="layui-input-inline">
+            <input type="text" id="name" name="name" required="" autocomplete="off" class="layui-input">
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label for="L_username" class="layui-form-label">
+            <span class="x-red">*</span>教师
+          </label>
+          <div class="layui-input-inline">
+            <select name="t_id" lay-verify="" lay-filter="test" id="t_id">
+              <!-- <option value="">请选择教师</option> -->
+            </select>
+          </div>
+        </div>
+        <div class="layui-form-item">
+          <label for="L_username" class="layui-form-label">
+            <span class="x-red">*</span>开课状态
+          </label>
+          <div class="layui-input-inline">
+            <input type="radio" name="status" id="status" value="0" title="尚未开班">
+            <input type="radio" name="status" id="status" value="1" title="学习中">
+            <input type="radio" name="status" id="status" value="2" title="学习完成">
+          </div>
+        </div>
+        <!-- <div class="layui-form-item">
+              <label for="L_pass" class="layui-form-label">
+                  <span class="x-red">*</span>密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_pass" name="pass" required="" lay-verify="pass"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  6到16个字符
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+                  <span class="x-red">*</span>确认密码
+              </label>
+              <div class="layui-input-inline">
+                  <input type="password" id="L_repass" name="repass" required="" lay-verify="repass"
+                  autocomplete="off" class="layui-input">
+              </div>
+          </div> -->
+        <div class="layui-form-item">
+          <label for="L_repass" class="layui-form-label">
+          </label>
+          <button class="layui-btn" lay-filter="add" lay-submit="">
+            修改
+          </button>
+        </div>
+      </form>
+    </div>
+    <script>
+      function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+          var pair = vars[i].split("=");
+          if (pair[0] == variable) {
+            return pair[1];
+          }
+        }
+        return (false);
+      }
+      
+      function init() {
+        var start_time = getQueryVariable("start_time");
+        var end_time = getQueryVariable("end_time");
+        var name = decodeURIComponent(getQueryVariable("name"));
+        var t_id = getQueryVariable("t_id");
+        var status = getQueryVariable("status");
+        
+        $("#start_time").val(start_time);
+        $("#end_time").val(end_time);
+        $("#name").val(name);
+        
+        $.ajax({
+          method: "POST",
+          url: "http://software.yongkj.cn/class/teacher",
+          dataType: "json",
+          data: {
+            operate: 'get'
+          },
+          success: function(res) {
+        
+            for (var i = 0; i < res.data.length; i++) {
+              if(res.data[i].id == t_id) {
+                $("#t_id").append("<option selected='selected' value='" + res.data[i].id + "'>" + res.data[i].name + "</option>");
+              }else{
+                $("#t_id").append("<option value='" + res.data[i].id + "'>" + res.data[i].name + "</option>");
+              }
+            }
+            layui.use('form', function() {
+              var form = layui.form; //高版本建议把括号去掉，有的低版本，需要加()
+              form.render();
+            });
+        
+          },
+          error: function() {
+            layer.msg('操作失败', {
+              icon: 2
+            });
+          }
+        });
+        
+        var selector = "input[name=status]";
+        var obj = $(selector);
+        for(var i = 0; i < obj.length; i++) {
+          if(obj[i].value == status) {
+            obj[i].checked = "checked";
+            break;
+          }
+        }
+      }
+      
+      init();
+
+      layui.use(['form', 'layer'], function() {
+        $ = layui.jquery;
+        var form = layui.form,
+          layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+          nikename: function(value) {
+            if (value.length < 5) {
+              return '昵称至少得5个字符啊';
+            }
+          },
+          pass: [/(.+){6,12}$/, '密码必须6到12位'],
+          repass: function(value) {
+            if ($('#L_pass').val() != $('#L_repass').val()) {
+              return '两次密码不一致';
+            }
+          }
+        });
+
+        //监听提交
+        form.on('submit(add)', function(data) {
+          
+          $.ajax({
+            method: "POST",
+            url: "http://software.yongkj.cn/class/grade?operate=mod&id=" + getQueryVariable("id"), //提交表单的地址
+            data: data.field, //提交表单的数据
+            success: function(res) {
+              
+              //发异步，把数据提交给php
+              layer.alert("修改信息成功", {
+                icon: 6
+              }, function() {
+                // 获得frame索引
+                var index = parent.layer.getFrameIndex(window.name);
+                //关闭当前frame
+                parent.layer.close(index);
+                // parent.layui.table.reload(tableName);
+                window.parent.location.reload();
+              });
+            },
+            error: function() {
+              // console.log("caozuosibai")
+              layer.close(loading);
+              layer.msg('操作失败', {
+                icon: 2
+              });
+            }
+          });
+          
+          // console.log(data);
+          // //发异步，把数据提交给php
+          // layer.alert("增加成功", {
+          //   icon: 6
+          // }, function() {
+          //   // 获得frame索引
+          //   var index = parent.layer.getFrameIndex(window.name);
+          //   //关闭当前frame
+          //   parent.layer.close(index);
+          // });
+          return false;
+        });
+
+
+      });
+    </script>
+    <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </body>
+
+</html>
