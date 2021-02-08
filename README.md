@@ -1,37 +1,30 @@
-# class-foreground
+# 班级管理系统（前端）
 
 #### 介绍
-班级管理系统（前端）
+本项目为学习与练习项目，实现一个简单的班级管理系统练习 C3P0 数据库连接池的使用步骤。主要功能包括班级管理、教师管理以及学生管理。
 
-#### 软件架构
-软件架构说明
+#### 链接
+班级管理系统：[http://m.yongkj.cn/html/class/](http://m.yongkj.cn/html/class/)
 
+#### 截图
 
-#### 安装教程
+![20210208171625.png](screenshot/20210208171625.png)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+![20210208171713.png](screenshot/20210208171713.png)
+
+![20210208171801.png](screenshot/20210208171801.png)
+
+#### 技术栈
+HTML+CSS+JS+JQuery+Layui
+
+1.  使用 Layui 中的方法渲染方式实现表格数据展示
+2.  实现数据的批量删除功能
+
+#### 功能特性
+
+1.  班级、教师以及学生信息的增加、删除、修改
+2.  点击页面的刷新按钮即可刷新当前展示的表格数据
 
 #### 使用说明
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+1.  HTML 文件中有 AJAX 代码，用于获取后台数据以及渲染数据，除了将数据接口更改后，还要修改表格的表头信息才能正常显示相应的数据
